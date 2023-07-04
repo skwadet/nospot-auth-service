@@ -12,6 +12,7 @@ pub mod user_service {
     use std::result::Result;
     use user_operations::validate_email;
 
+
     pub fn add_user(first_name: String, last_name: String, email: String) -> Result<User, ServiceError> {
         match validate_email(&email) {
             true => Ok(create_user(first_name, last_name, email)),
