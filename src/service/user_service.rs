@@ -14,12 +14,10 @@ pub mod user_service {
 
     pub fn add_user(first_name: String, last_name: String, email: String) -> Result<User, ServiceError> {
         match validate_email(&email) {
-            true =>
-                Ok(create_user(first_name, last_name, email)),
-            _ =>
-                Err(new_service_error("Неправильный email!".to_string(),
-                                      "Couldn't create user!".to_string(),
-                                      400))
+            true => Ok(create_user(first_name, last_name, email)),
+            _ => Err(new_service_error("Неправильный email!".to_string(),
+                                       "Couldn't create user!".to_string(),
+                                       400))
         }
     }
 }
