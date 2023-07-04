@@ -1,14 +1,16 @@
 pub mod user_service {
+    use crate::{
+        service::errors::internal_errors::ServiceError,
+        service::user_service::user_operations,
+        domain::user::user::User,
+    };
+
     use uuid::Uuid;
     use chrono::DateTime;
     use chrono::Utc;
     use chrono::offset;
-    use regex::Regex;
     use std::result::Result;
-    use crate::{
-        service::errors::internal_errors::ServiceError,
-        domain::user::user::{User, validate_email},
-    };
+    use user_operations::validate_email;
 
     pub fn create_user(first_name: String, last_name: String, email: String) -> Result<User, ServiceError> {
         match validate_email(&email) {
@@ -21,5 +23,15 @@ pub mod user_service {
             }),
             _ => Err(ServiceError { repr: "Couldn't create user!".to_string() })
         }
+    }
+}
+
+pub mod user_operations {
+    use regex::Regex;
+
+    pub fn validate_email(email: &String) -> bool {
+        Regex::new(r"^([a-z0-9_+]([a-z0-9_+.]*[a-z0-9_+])?)@([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,6})")
+            .unwrap()
+            .is_match(email)
     }
 }

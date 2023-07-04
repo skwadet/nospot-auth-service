@@ -7,6 +7,4 @@ mod domain {
     pub(crate) mod user;
 }
 
-fn main() {
-    println!("Hello, world!");
-}
+fn main() {}
