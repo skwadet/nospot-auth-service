@@ -19,7 +19,7 @@ pub mod user_service {
             _ =>
                 Err(new_service_error("Неправильный email!".to_string(),
                                       "Couldn't create user!".to_string(),
-                                      400, ))
+                                      400))
         }
     }
 }
