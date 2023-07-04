@@ -1,8 +1,8 @@
 pub mod user_service {
     use crate::{
-        service::errors::internal_errors::ServiceError,
+        service::errors::internal_errors::{ServiceError, new_service_error},
         service::user_service::user_operations,
-        domain::user::user::User,
+        domain::user::user::{User, create_user},
     };
 
     use uuid::Uuid;
@@ -12,20 +12,14 @@ pub mod user_service {
     use std::result::Result;
     use user_operations::validate_email;
 
-    pub fn create_user(first_name: String, last_name: String, email: String) -> Result<User, ServiceError> {
+    pub fn add_user(first_name: String, last_name: String, email: String) -> Result<User, ServiceError> {
         match validate_email(&email) {
-            true => Ok(User {
-                id: Uuid::new_v4(),
-                first_name,
-                last_name,
-                email,
-                created_at: Utc::now(),
-            }),
-            _ => Err(ServiceError {
-                repr_api: "Неправильный email!".to_string(),
-                repr_internal: "Couldn't create user!".to_string(),
-                code: 400,
-            })
+            true =>
+                Ok(create_user(first_name, last_name, email)),
+            _ =>
+                Err(new_service_error("Неправильный email!".to_string(),
+                                      "Couldn't create user!".to_string(),
+                                      400, ))
         }
     }
 }

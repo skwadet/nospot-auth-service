@@ -10,4 +10,14 @@ pub mod user {
         pub email: String,
         pub created_at: DateTime<Utc>,
     }
+
+    pub fn create_user(first_name: String, last_name: String, email: String) -> User {
+        User {
+            id: Uuid::new_v4(),
+            first_name,
+            last_name,
+            email,
+            created_at: Utc::now(),
+        }
+    }
 }
