@@ -1,0 +1,7 @@
+.idea
+nospot-auth-service.iml
+debug/
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
