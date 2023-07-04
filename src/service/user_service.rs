@@ -21,7 +21,11 @@ pub mod user_service {
                 email,
                 created_at: Utc::now(),
             }),
-            _ => Err(ServiceError { repr: "Couldn't create user!".to_string() })
+            _ => Err(ServiceError {
+                repr_api: "Неправильный email!".to_string(),
+                repr_internal: "Couldn't create user!".to_string(),
+                code: 400,
+            })
         }
     }
 }
